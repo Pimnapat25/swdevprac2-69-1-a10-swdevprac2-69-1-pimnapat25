@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { getServerSession } from "next-auth";
 import TopMenuItem from "./TopMenuItem";
 import { authOptions } from "@/app/api/auth/[...nextauth]/authOptions";
@@ -9,11 +10,12 @@ export default async function TopMenu() {
   return (
     <header className="fixed top-0 left-0 z-30 flex h-16 w-full flex-row border-b border-gray-200 bg-white shadow-sm">
       {/* Sign-In / Sign-Out menu item */}
-      {session ? (
-        <TopMenuItem title="Sign-Out" pageRef="/api/auth/signout" />
-      ) : (
-        <TopMenuItem title="Sign-In" pageRef="/api/auth/signin" />
-      )}
+      <Link
+        href={session ? "/api/auth/signout" : "/api/auth/signin"}
+        className="flex h-full items-center px-20 text-lg font-medium text-amber-800 underline"
+      >
+        {session ? "Sign-Out" : "Sign-In"}
+      </Link>
 
       {/* empty space */}
       <div className="flex-1" />
